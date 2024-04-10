@@ -9,7 +9,7 @@
 <body>
 
     <div class="alert-box" id = "alert">
-        <p>알림창임</p>
+        <p class = 'title1'id ='title'>알림창임</p>
         <button onclick="buttonBox('none')">닫기</button>
     </div>
     <button onclick="buttonBox('block','알림창')">버튼</button>
@@ -18,7 +18,10 @@
     <script>
         function buttonBox(p1 ,p2){
             document.getElementById('alert').style.display = p1;
-            document.getElementById('alert p').innerHTML = p2;
+           document.getElementById('title').innerHTML = p2;
+           /*  document.getElementsByClassName('title1')[0].innerHTML = p2;
+            class 중복으로 사용되니 몇번째를 의미하는지 인덱싱을 해야함 
+            */
         }
        
     </script>
