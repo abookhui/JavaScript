@@ -7,11 +7,20 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <h1 id="hello">안녕하세요</h1>
-    <script>
-        document.getElementById('hello').style.fontSize = "16px";
-    </script>
 
-    <div class="alert-box ads">알림창임</div>
+    <div class="alert-box" id = "alert">알림창임
+        <button onclick="close_box()">닫기</button>
+    </div>
+    <button onclick="openBox()">버튼</button>
+
+    <script>
+        function closeBox(){
+            document.getElementById('alert').style.display = 'none';
+        }
+        function openBox(){
+            document.getElementById('alert').style.display = 'block';
+        }
+       
+    </script>
 </body>
 </html>
