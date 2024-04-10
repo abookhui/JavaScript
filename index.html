@@ -8,17 +8,17 @@
 </head>
 <body>
 
-    <div class="alert-box" id = "alert">알림창임
-        <button onclick="close_box()">닫기</button>
+    <div class="alert-box" id = "alert">
+        <p>알림창임</p>
+        <button onclick="buttonBox('none')">닫기</button>
     </div>
-    <button onclick="openBox()">버튼</button>
-
+    <button onclick="buttonBox('block','알림창')">버튼</button>
+    <button onclick="buttonBox('block','Id 입력')">Id</button>
+    <button onclick="buttonBox('block','Password 입력')">Password</button>
     <script>
-        function closeBox(){
-            document.getElementById('alert').style.display = 'none';
-        }
-        function openBox(){
-            document.getElementById('alert').style.display = 'block';
+        function buttonBox(p1 ,p2){
+            document.getElementById('alert').style.display = p1;
+            document.getElementById('alert p').innerHTML = p2;
         }
        
     </script>
