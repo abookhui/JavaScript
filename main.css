@@ -30,3 +30,18 @@
   visibility: visible;
   opacity: 1;
 }
+.badge{
+  color: white;
+}
+.slide-container{
+  width: 300vw;
+  overflow: hidden;
+}
+.slide-box{
+  width: 100vw;
+  float: left;
+  
+}
+.slide-box img{
+  width: 100%;
+}
