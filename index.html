@@ -54,6 +54,7 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
           <span class="navbar-brand">Navbar</span>
+          <span class="badge bg-dark" id="darkmode">Dark 🔄</span>
           <button class="navbar-toggler" type="button">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -73,6 +74,8 @@
          $('.navbar-toggler').on('click',function(){
             $('.list-group').toggleClass('show-navbar');
         })
+
+
       </script>
       <div class="main-bg">
         <h4>Shirts on Sale</h4>
@@ -81,6 +84,13 @@
       
 
     <script>
+      var cnt=0;
+      $('.badge').on('click',function(){
+        cnt++;
+        if(cnt%2) $('#darkmode').html('Light 🔄');
+        //document.getElementById('darkmode').innerHTML = 'Light 🔄';
+        else $('#darkmode').html('Dark 🔄');
+      })
       $('#login').on('click',function(){
         $('.black-bg').addClass('show-modal')
       })
