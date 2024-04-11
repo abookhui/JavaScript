@@ -176,6 +176,10 @@
           $('.slide-container').css('transform', 'translateX(-' + present + '00vw)');
           present++;
         }
+        else if(present == 3){
+          $('.slide-container').css('transform','translateX(0)');
+          present = 1;
+        }
           
       });
       $('#slide-btn-ago').on('click',function(){
