@@ -18,18 +18,38 @@
   <body>  
     <div class="black-bg">
       <div class="white-bg">
-        <h4>로그인하세요</h4><form action="success.html">
+        <h4>로그인하세요</h4>
+        <form action="success.html">
           <div class="my-3">
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" id="email">
            </div>
            <div class="my-3">
-             <input type="password" class="form-control">
+             <input type="password" class="form-control" id="password">
            </div>
-           <button type="submit" class="btn btn-primary">전송</button>
+           <button type="submit" class="btn btn-primary" id="send">전송</button>
            <button type="button" class="btn btn-danger" id="close">닫기</button>
         </form> 
       </div>
     </div> 
+
+    <script>
+      
+
+      $('form').on('submit',function(e){
+      
+        if(document.getElementById('email').value =='' || document.getElementById('password').value==''){
+          e.preventDefault(); // 폼 전송 막기
+          alert('아이디 또는 비밀번호 입력 안됨');
+        }
+        if(document.getElementById('password').value.length < 6){
+          e.preventDefault(); // 폼 전송 막기
+          alert('6글자 이상 비밀번호를 입력하시오.');
+        }
+      });
+    </script>
+
+
+
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
           <span class="navbar-brand">Navbar</span>
@@ -38,6 +58,8 @@
           </button>
         </div>
       </nav> 
+
+
 
       <ul class="list-group">
         <li class="list-group-item">Cras justo odio</li>
