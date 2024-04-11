@@ -16,7 +16,7 @@
     </script>
     <script src="IfElse.js"></script>
   </head>
-  <body>  
+  <body class="dark">  
     <div class="black-bg">
       <div class="white-bg">
         <h4>로그인하세요</h4>
@@ -37,14 +37,23 @@
       
 
       $('form').on('submit',function(e){
-      
-        if(document.getElementById('email').value =='' || document.getElementById('password').value==''){
+        var IDinput = document.getElementById('email').value;
+        var PWinput = document.getElementById('password').value;
+        if(IDinput =='' ||PWinput==''){
           e.preventDefault(); // 폼 전송 막기
           alert('아이디 또는 비밀번호 입력 안됨');
         }
-        if(document.getElementById('password').value.length < 6){
+        else if(!/\S+@\S+\.\S+/.test(IDinput)){
+          e.preventDefault(); 
+          alert('email형식이 아님');
+        }
+        else if(PWinput.length < 6){
           e.preventDefault(); // 폼 전송 막기
           alert('6글자 이상 비밀번호를 입력하시오.');
+        }
+        else if(!/[A-Z]/.test(PWinput)){
+          e.preventDefault();
+          alert('비밀번호에 대문자가 없습니다.');
         }
       });
     </script>
@@ -99,8 +108,92 @@
       })
     </script>
     
-     
+     <!-- <div class="alert alert-danger" id="timeout">
+      <span id="num">5</span>초 이내 구매시 사은품 증정!
+     </div> -->
+     <script>
+      var count = 5;
+      
+      setInterval(descress,1000);
+      function descress(){
+        count-=1;
+        if(count==0) $('#timeout').hide();
+        else if(count >0) document.querySelector('#num').innerHTML = count;
+        
+      }
+      var timer = setInterval(descress,1000);
+      clearTimeout(timer);
+     </script>
 
+     <div class="slide-container">
+      <div class="slide-box">
+        <img src="car1.png" alt="">
+      </div>
+      <div class="slide-box">
+        <img src="car2.png" alt="">
+      </div>
+      <div class="slide-box">
+        <img src="car3.png" alt="">
+      </div>
+     </div>
+     <button class="btn" id="slide-btn-ago">이전</button>
+     <button class="btn" id="slide-btn1">1</button>
+     <button class="btn" id="slide-btn2">2</button>
+     <button class="btn" id="slide-btn3">3</button>
+     <button class="btn" id="slide-btn-next">다음</button>
+     <script>
+
+      var present = 1;
+      $('#slide-btn1').on('click',function(){
+        $('.slide-container').css('transform','translateX(0)');
+        present = 1;
+      });
+      $('#slide-btn2').on('click',function(){
+        $('.slide-container').css('transform','translateX(-100vw)');
+        present = 2;
+      });
+      $('#slide-btn3').on('click',function(){
+        $('.slide-container').css('transform','translateX(-200vw)');
+        present = 3;
+      });
+
+      // $('#slide-btn-next').on('click',function(){
+      //   if(present == 1){
+      //     $('.slide-container').css('transform','translateX(-100vw)');
+      //     present = 2;
+      //   }
+      //   else if(present == 2){
+      //     $('.slide-container').css('transform','translateX(-200vw)');
+      //     present = 3;
+      //   }
+      //   else if(present == 3){
+      //     $('.slide-container').css('transform','translateX(0)');
+      //     present = 1;
+      //   }
+      // });
+      $('#slide-btn-next').on('click',function(){
+        if(present<3){
+          $('.slide-container').css('transform', 'translateX(-' + present + '00vw)');
+          present++;
+        }
+          
+      });
+      $('#slide-btn-ago').on('click',function(){
+        if(present == 1){
+          $('.slide-container').css('transform','translateX(-200vw)');
+          present = 3;
+        }
+        else if(present == 2){
+          $('.slide-container').css('transform','translateX(0)');
+          present = 1;
+        }
+        else if(present == 3){
+          $('.slide-container').css('transform','translateX(-100vw)');
+          present = 2;
+        }
+        
+      });
+     </script>
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
