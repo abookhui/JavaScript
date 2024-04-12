@@ -16,7 +16,11 @@
     </script>
     <script src="IfElse.js"></script>
   </head>
+
+
   <body class="dark">  
+
+
     <div class="black-bg">
       <div class="white-bg">
         <h4>로그인하세요</h4>
@@ -34,7 +38,18 @@
     </div> 
 
     <script>
-      
+       $('.black-bg').on('click', function(e){
+
+        // e.target; // 유저가 실제로 누른것
+        // e.currentTarget; // 이벤트 리스너 달린 곳 == this; (여기선)
+        
+        // e.preventDefault(); // 이번트 기본 동작 막아줌 여기선 click
+        // e.stopPropagation(); // 내 사위 요소로 이벤트 버블링 막아줌
+        //console.log(e.target); console.log($('.black-bg'));
+        if(e.target == document.querySelector('.black-bg')){ // $는 형태가 달라서 안됨 $(e.target) == $('.black-bg') 이렇게 해줘야함
+          $('.black-bg').removeClass('show-modal');
+        }
+      });
 
       $('form').on('submit',function(e){
         var IDinput = document.getElementById('email').value;
@@ -57,10 +72,11 @@
         }
       });
     </script>
+    
 
 
 
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
           <span class="navbar-brand">Navbar</span>
           <span class="badge bg-dark" id="darkmode">Dark 🔄</span>
@@ -106,24 +122,23 @@
         <h4>Shirts on Sale</h4>
         <button id="login" class="btn">로그인</button>
       </div>
-      
 
-    <script>
-      var cnt=0;
-      $('.badge').on('click',function(){
-        cnt++;
-        if(cnt%2) $('#darkmode').html('Light 🔄');
-        //document.getElementById('darkmode').innerHTML = 'Light 🔄';
-        else $('#darkmode').html('Dark 🔄');
-      })
-      $('#login').on('click',function(){
-        $('.black-bg').addClass('show-modal')
-      })
-      $('#close').on('click',function(){
-        $('.black-bg').removeClass('show-modal')
-      })
-    </script>
-    
+      <script>
+        var cnt=0;
+        $('.badge').on('click',function(){
+          cnt++;
+          if(cnt%2) $('#darkmode').html('Light 🔄');
+          //document.getElementById('darkmode').innerHTML = 'Light 🔄';
+          else $('#darkmode').html('Dark 🔄');
+        })
+        $('#login').on('click',function(){
+          $('.black-bg').addClass('show-modal')
+        })
+        $('#close').on('click',function(){
+          $('.black-bg').removeClass('show-modal')
+        })
+</script>
+
      <!-- <div class="alert alert-danger" id="timeout">
       <span id="num">5</span>초 이내 구매시 사은품 증정!
      </div> -->
@@ -214,6 +229,8 @@
           }
         });
       </script>
+
+    
      <div style="height: 1000px;"></div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
