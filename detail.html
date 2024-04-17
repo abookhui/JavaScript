@@ -75,7 +75,7 @@
 
     
     
-    <script>// get, post
+    <!-- <script>// get, post
       $.get('https://codingapple1.github.io/hello.txt')
       .done(function(data){
         console.log(data);  // get으로 받아온 data
@@ -90,11 +90,15 @@
       // .done(function(data){
       //   console.log(data);  // 
       // });
-    </script>
+    </script> -->
+      
+      <div class="container">
+        <button class="btn btn-danger" id ="price">가격 순 정렬</button>
+        <button class="btn btn-danger" id ="word-order">다나가 순 정렬</button>
+        <button class="btn btn-danger" id ="less-than">6만원 이하 상품</button>
+      </div>
+      <br>
         <div class="container">
-          <button class="btn btn-danger" id ="price">가격 순 정렬</button>
-          <button class="btn btn-danger" id ="price">가나다 순 정렬</button>
-          <button class="btn btn-danger" id ="price">6만원 이하 상품</button>
           <button class="btn btn-danger" id="more">더보기</button>
         </div>
         
@@ -105,35 +109,40 @@
         { id : 1, price : 50000, title : 'Springfield Shirt' },
         { id : 2, price : 60000, title : 'Black Monastery' }
       ];
+      products.forEach((data) => {
+                MoreCard(data);
+            });
+      $('#word-order').click(function(){
+        products.sort(function(a,b){
+          return a.title < b.title ? 1 : -1;
+        });
+        $('.row').html("");
+        products.forEach(data => {
+          MoreCard(data);
+        });
+      });
 
+      $('#less-than').click(function(){
+        var ans = products.filter(function(a){
+          return a.price <= 60000; 
+        });
+        //console.log(ans);
+        $('.row').html("");
+        ans.forEach(data=> {
+          MoreCard(data);
+        });
+      });
+        
       $('#price').click(function(){
         products.sort(function(a, b){
-          return a.price > b.price ? 1:-1;
+          return a.price < b.price ? 1:-1;
         });
         $('.row').html("");
         products.forEach(data => {
           MoreCard(data);
         });
       })
-      
-      
-      // var arr = [3,5,4,7,9,23];
-      // var arreng = ['a','c','b'];
-      // var arrtmp = arr.filter(function(a){ // 변수에 저장해 주어야함 원본 변형 x
-      //   return a < 4;
-      // });
-      // var arrtmp = arr.map(function(a){ // 환율 적용 시키키 같은 것에 응용
-      //  return a*4;
-      // });
-      // arr.sort(function(a,b){
-      //   return a-b; // 숫자 오름차순 정렬 a&&b은 arr 안의 자료로 return 양수면 a를 오른쪽으로
-      // });
-      // arreng.sort((a,b)=>{
-      //   return a < b ? 1 : -1;
-      // });
-      
-      console.log(arrtmp);
-      // console.log(arreng);
+ 
       function MoreCard(data){
           var templete = 
           `<div class = "col-sm-4">
@@ -147,9 +156,7 @@
         $('.row').append(templete);
       }
 
-      products.forEach((data) => {
-          MoreCard(data);
-      });
+      
       var cnt=0;
       $('#more').click(function(){
           cnt++;
