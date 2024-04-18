@@ -74,27 +74,6 @@
       </div>
 
     </div>
-    
-    <!-- <form action="/asdfas" method="post"></form> -->
-
-    
-    
-    <!-- <script>// get, post
-      $.get('https://codingapple1.github.io/hello.txt')
-      .done(function(data){
-        console.log(data);  // get으로 받아온 data
-      }).fail(function(){ // ajax 실패시 404 >> url 주소가 이상함
-        console.log('fail');
-      })
-      $.get('https://codingapple1.github.io/price.json')
-      .done(function(data){
-        console.log(data.price); 
-      })
-      // $.post('https://codingapple1.github.io/hello.txt',{name:'kim'})
-      // .done(function(data){
-      //   console.log(data);  // 
-      // });
-    </script> -->
       
       <div class="container">
         <button class="btn btn-danger" id ="price">가격 순 정렬</button>
@@ -147,42 +126,7 @@
         });
       })
       
-      function MoreCard(data){
-          var templete = 
-          `<div class = "col-sm-4">
-          <img src="https://via.placeholder.com/600" class = "w-100">
-          <div class="card-body">
-            <h5>${data.title}</h5>
-            <p>가격 : ${data.price}</p>
-            <button class="btn btn-danger buy">구매</button>
-          </div>
-        </div>`
-        $('.row').append(templete);
-      }
       
-      
-
-      // //localStorage.setItem('num',[1,2,3]);
-      // var arr = [1,2,3];
-      // var newArr = JSON.stringify(arr); // 문자로만 저장되니 json으로 변환 후 저장
-      // var out = localStorage.setItem('num',newArr); // array||object >> json
-      // console.log(JSON.parse(out)); // Json  >> array|| object
-
-      // localStorage data 수정 > 1자료꺼내고 2꺼낸거 수정 3다시 넣기
-
-      $('.buy').click(function(e){
-        var title = $(e.target).siblings('h5').text();
-      
-        if(localStorage.getItem('cart')!=null){
-          var tmp = JSON.parse(localStorage.cart);
-          tmp.push(title);
-          console.log(tmp)
-          localStorage.setItem('cart',JSON.stringify(tmp));
-        }else {
-          localStorage.setItem('cart',JSON.stringify([title]));
-        }
-        
-      });
       
       var cnt=0;
       $('#more').click(function(){
@@ -206,7 +150,48 @@
           }
         });
 
+        function MoreCard(data){
+          var templete = 
+          `<div class = "col-sm-4">
+          <img src="https://via.placeholder.com/600" class = "w-100">
+          <div class="card-body">
+            <h5>${data.title}</h5>
+            <p>가격 : ${data.price}</p>
+            <button class="btn btn-danger buy">구매</button>
+          </div>
+        </div>`
+        $('.row').append(templete);
+      }
+      
+      
+      $('.buy').click(function(e){
+        var title = $(e.target).siblings('h5').text();
+
+        if(localStorage.getItem('cart')!=null){
+          var cart = {};
+          var tmp = JSON.parse(localStorage.getItem('cart')); // object
+          var cnt;
+          var chk =0;
+          for(var i =0;i<tmp.length;i++){
+            if(tmp[i].title == title){
+              tmp[i].num +=1;
+              chk=1;
+              
+              localStorage.setItem('cart',JSON.stringify(tmp));
+              break;
+            }
+          }
+          if(chk==0){
+            cart.title = title;
+            cart.num = 1;
+            tmp.push(cart);
+            localStorage.setItem('cart',JSON.stringify(tmp));
+          } 
+        }else {
+          localStorage.setItem('cart',JSON.stringify([{'title':title , 'num':1}]));
+        }
         
+      });
     </script> 
 
     
@@ -257,12 +242,9 @@
     var pants = [28,30,32];
     var shirts = [95,100,105];
     $('.form-select').eq(0).on('input',function(){
-      //var value = $('.form-select').eq(0).val();
       var value = this.value;
       if(value == '셔츠'){
         $('.form-select').eq(1).removeClass('form-hide');
-        // var temp = '<option>90</option> <option>95</option>';
-        // $('.form-select').eq(1).html(temp);
         $('.form-select').eq(1).html('');
 
         shirts.forEach(function(item){
@@ -272,17 +254,8 @@
       }
         
       else if(value == '바지'){
-        $('.form-select').eq(1).removeClass('form-hide');
-        //$('.jeansOption').eq(0).html(28);
-        //$('.jeansOption').eq(1).html(30);
-        //var temp = '<option>28</option> <option>30</option>';
-        //$('.form-select').eq(1).append(temp);
-        
+        $('.form-select').eq(1).removeClass('form-hide');  
         var temp;
-        // for(var i =0;i<pants.length;i++){
-        //  temp += `<option>${pants[i]}</option>`;
-        // $('.form-select').eq(1).html(temp); }
-
         pants.forEach(function(item){ // foreach 함수 
           temp += `<option>${item}</option>`;
           
