@@ -61,7 +61,11 @@
     </style>
   </head>
   <body>  
+    <div class="container m-5">
+      <a href="shop-cart.html"><button class="shop-cart btn btn-danger">장바구니</button></a>
+    </div>
 
+    
     <div class="card-group container">
       <div class="row">
 
@@ -156,17 +160,30 @@
         $('.row').append(templete);
       }
       
-      localStorage.setItem('name','han');
-      console.log(localStorage.getItem('name'));
-      localStorage.removeItem('name');
+      
 
-      //localStorage.setItem('num',[1,2,3]);
-      var arr = [1,2,3];
-      var newArr = JSON.stringify(arr); // 문자로만 저장되니 json으로 변환 후 저장
-      var out = localStorage.setItem('num',newArr); // array||object >> json
-      console.log(JSON.parse(out)); // Json  >> array|| object
+      // //localStorage.setItem('num',[1,2,3]);
+      // var arr = [1,2,3];
+      // var newArr = JSON.stringify(arr); // 문자로만 저장되니 json으로 변환 후 저장
+      // var out = localStorage.setItem('num',newArr); // array||object >> json
+      // console.log(JSON.parse(out)); // Json  >> array|| object
 
       // localStorage data 수정 > 1자료꺼내고 2꺼낸거 수정 3다시 넣기
+
+      $('.buy').click(function(e){
+        var title = $(e.target).siblings('h5').text();
+      
+        if(localStorage.getItem('cart')!=null){
+          var tmp = JSON.parse(localStorage.cart);
+          tmp.push(title);
+          console.log(tmp)
+          localStorage.setItem('cart',JSON.stringify(tmp));
+        }else {
+          localStorage.setItem('cart',JSON.stringify([title]));
+        }
+        
+      });
+      
       var cnt=0;
       $('#more').click(function(){
           cnt++;
@@ -189,6 +206,7 @@
           }
         });
 
+        
     </script> 
 
     
