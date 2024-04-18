@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous">
+    </script>
+    <style>
+        
+.slide-container{
+  width: 300vw;
+  overflow: hidden;
+}
+.slide-box{
+  width: 100vw;
+  
+  float: left;
+  
+}
+.slide-box img{
+  width: 100%;
+}
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="slide-box">
+          <img src="car1.png" alt="" draggable="false">  <!--드래그 && 이동 막기-->
+        </div>
+        <div class="slide-box">
+          <img src="car2.png" alt="">
+        </div>
+        <div class="slide-box">
+          <img src="car3.png" alt="">
+        </div>
+       </div>
+       <button class="btn" id="slide-btn-ago">이전</button>
+       <button class="btn" id="slide-btn1">1</button>
+       <button class="btn" id="slide-btn2">2</button>
+       <button class="btn" id="slide-btn3">3</button>
+       <button class="btn" id="slide-btn-next">다음</button>
+
+
+
+       <script>
+        
+
+        var present = 1;
+        $('#slide-btn1').on('click',function(){
+          $('.slide-container').css('transform','translateX(0)');
+          present = 1;
+        });
+        $('#slide-btn2').on('click',function(){
+          $('.slide-container').css('transform','translateX(-100vw)');
+          present = 2;
+        });
+        $('#slide-btn3').on('click',function(){
+          $('.slide-container').css('transform','translateX(-200vw)');
+          present = 3;
+        });
+  
+        $('#slide-btn-next').on('click',function(){
+          if(present<3){
+            $('.slide-container').css('transform', 'translateX(-' + present + '00vw)');
+            present++;
+          }
+          else if(present == 3){
+            $('.slide-container').css('transform','translateX(0)');
+            present = 1;
+          }
+            
+        });
+        $('#slide-btn-ago').on('click',function(){
+          if(present == 1){
+            $('.slide-container').css('transform','translateX(-200vw)');
+            present = 3;
+          }
+          else if(present == 2){
+            $('.slide-container').css('transform','translateX(0)');
+            present = 1;
+          }
+          else if(present == 3){
+            $('.slide-container').css('transform','translateX(-100vw)');
+            present = 2;
+          }
+          
+        });
+
+        var startx;
+        var isclick = 0;
+        var endx
+        $('.slide-box').eq(0).on('mousedown',function(e){  // touchstart
+           startx = e.clientX
+           isclick=1;
+        })
+        $('.slide-box').eq(0).on('mousemove',function(e){ //touchmove
+           endx = e.clientX-startx;
+           
+           if(isclick){ //console.log(endx);
+            $('.slide-container').css('transform',`translateX(${endx}px)`);
+           }
+           
+            
+           
+        }) 
+        $('.slide-box').eq(0).on('mouseup',function(e){ //touchend
+           isclick =0;
+           if(endx < -200){
+            $('.slide-container').css('transform','translateX(-100vw)')
+            .css('transition' , 'all 0.5s');
+                present = 2;
+            }
+           else if(endx >= -200){
+                $('.slide-container').css('transform','translateX(0vw)')
+                .css('transition' , 'all 0.5s');
+                present = 1;
+            }
+            setTimeout(function(){ // 0.5초후 
+                $('.slide-container').css('transitoin','none');
+            },500);
+            
+        })
+        //touch
+
+        // $('.slide-box').eq(0).on('touchstart',function(e){  // touchstart
+        //    startx = e.touches[0].clientX  // 몇번째 손가락인지
+        //    isclick=1;
+        // })
+        // $('.slide-box').eq(0).on('touchmove',function(e){ //touchmove
+        //    endx = e.clientX-startx;
+           
+        //    if(isclick){ //console.log(endx);
+        //     $('.slide-container').css('transform',`translateX(${endx}px)`);
+        //    }
+           
+            
+           
+        // }) 
+        // $('.slide-box').eq(0).on('touchend',function(e){ // e.changedTouches[0]
+        //    isclick =0;
+        //    if(endx < -200){
+        //     $('.slide-container').css('transform','translateX(-100vw)')
+        //     .css('transition' , 'all 0.5s');
+        //         present = 2;
+        //     }
+        //    else if(endx >= -200){
+        //         $('.slide-container').css('transform','translateX(0vw)')
+        //         .css('transition' , 'all 0.5s');
+        //         present = 1;
+        //     }
+        //     setTimeout(function(){ // 0.5초후 
+        //         $('.slide-container').css('transitoin','none');
+        //     },500);
+            
+        // })
+       </script>
+</body>
+</html>
