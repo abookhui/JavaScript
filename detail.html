@@ -142,7 +142,7 @@
           MoreCard(data);
         });
       })
- 
+      
       function MoreCard(data){
           var templete = 
           `<div class = "col-sm-4">
@@ -150,13 +150,23 @@
           <div class="card-body">
             <h5>${data.title}</h5>
             <p>가격 : ${data.price}</p>
-            <button class="btn btn-danger">주문하기</button>
+            <button class="btn btn-danger buy">구매</button>
           </div>
         </div>`
         $('.row').append(templete);
       }
-
       
+      localStorage.setItem('name','han');
+      console.log(localStorage.getItem('name'));
+      localStorage.removeItem('name');
+
+      //localStorage.setItem('num',[1,2,3]);
+      var arr = [1,2,3];
+      var newArr = JSON.stringify(arr); // 문자로만 저장되니 json으로 변환 후 저장
+      var out = localStorage.setItem('num',newArr); // array||object >> json
+      console.log(JSON.parse(out)); // Json  >> array|| object
+
+      // localStorage data 수정 > 1자료꺼내고 2꺼낸거 수정 3다시 넣기
       var cnt=0;
       $('#more').click(function(){
           cnt++;
