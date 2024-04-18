@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="apple.css">
+    <script src="jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="card-background">
+        <div class="card-box">
+            <img src="card1.png" alt="">
+        </div>        
+        <div class="card-box">
+            <img src="card2.png" alt="">
+        </div>
+        <div class="card-box">
+            <img src="card3.png" alt="">
+        </div>
+
+    </div>
+
+    <script>
+        $(window).scroll(function(){
+            var h = $(window).scrollTop(); 
+            //console.log(h);
+            var y1 = -1/750*h + 116/75;//410 1160 opacity 0~1
+            var y2 = -1/800*h+98/40; //1160 1960
+            var z1 =  -1/7500*h + 791/750; 
+            var z2 =  -1/8000*h + 916/800; 
+            $('.card-box').eq(0).css('opacity', y1);
+            $('.card-box').eq(0).css('transform', `scale(${z1})`);
+            $('.card-box').eq(1).css('opacity', y2);
+            $('.card-box').eq(1).css('transform', `scale(${z2})`);
+        })
+    </script>
+</body>
+</html>
