@@ -8,167 +8,148 @@
     <script src="/JavaScript 입문과 웹 UI개발/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="main.css">
 </head>
-  <body>
-    <div class="light-grey">
-        <nav class="navbar navbar-dark bg-dark">
-            <div class="container-fluid">
-                <ul class="nav navbard">
-                    <li class="navbar-brand" href="#">Navbar</li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Pricing</a>
-                </li>
+  <body style="background-color: #f4f4f4;">
 
-                </ul>
-            </div>
-        </nav>
-        <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-            </div>
-        </nav>
-        
-        <div class="row">
-            
-        </div>
-        <div class="container">
-            <div class="grey">
-                <h4 class="bold cart-text">장바구니</h4>
-                <div class="container cart drag">
-                    <p class="white-color drag-text">여기로 드래그</p>
-                </div>
-            </div>
-        </div>
-        
-
-        <script>
-            function AddCard(data,picture){
-                var templete = 
-                `<div class = "card-container white-background">
-
-                    <img class = "w-100 card-pic" src="${picture}" >
-                    <h7 class = "bold card-title">${data.title}</h7>
-                    <p class = "card-brand">${data.brand}</p>
-                    <p class = "card-price">${data.price}</p>
-                    <p class = "card-count">${0} </p>
-                    
-                </div>`
-                $('.drag').append(templete);
-            }
-            $.get('store.json').done(function(data){
-                for(var i =0;i <data.products.length;i++){
-                    var picture = `pr${i+1}.jpg`;
-                    MoreCard((data.products[i]),picture);
-                }
-                
-                for(let i =0; i <data.products.length; i++){
-                    
-                    $('.card-container').eq(i).on('mousedown',function(e){
-                        e.stopImmediatePropagation(); // event bubbling 막아줌
-                        // console.log(e.target);
-                        // console.log($('.card-title').html());
-                        var cart = {};
-                        var title = $(e.target).siblings('h7').text();
-                        var brand = $(e.target).siblings('.card-brand').text();
-                        var price = $(e.target).siblings('.card-price').text();
-                        //var count = $(e.target).siblings('.card-count').text();
-                        title = `{title : ${title}}`;
-                       
-                        var obj = JSON.parse(title); 
-                        console.log(typeof(title));  // object로 바꾸다막힘
-                        //console.log(obj);
-                        //
-                        //cart.push(title);
-                        //console.log(count);
-                        //localStorage.setItem()
-                        $('.drag').one('mouseenter',function(e){
-                            e.stopImmediatePropagation();
-                            
-                            
-                            if($('.drag').text() == '\n                    여기로 드래그\n                '){
-                                $('.drag').html("");
-                                AddCard(data.products[i],`pr${i+1}.jpg`); 
-
-                               // localStorage.setItem()
-                            }
-                            // else if(중복값 없을때){
-                            //     AddCard(data.products[i],`pr${i+1}.jpg`); 
-                            // }               
-                            // else if (중복시) {
-
-                            // }          
-                            
-                                                                                  
-                        });                   
-                    });
-                }
-                
-            });
-            
-            function MoreCard(data,picture){
-            var templete = 
-            `<div class = "card-container white-background">
-                    <img class = "w-100 card-pic" src="${picture}"  >
-                    <h7 class = "bold card-title">${data.title}</h7>
-                    <p class = "card-brand">${data.brand}</p>
-                    <p class = "card-price">${data.price}</p>
-                    <button class="btn btn-danger buy">담기</button>
-                
-            </div>`
-            $('.row').append(templete);
-
-            /*
-            1. card-pic를 잡는다.
-            2. 이동 위치가 드래그에 위치 되면 3.드래그레 카드를 만든다.
-            
-            */
-            
-
-            
-            // $('.card-container').eq(0).on('mousedown',function(e){
-            //     e.stopImmediatePropagation(); // event bubbling 막아줌
-            //     console.log(e.target);
-                
-            //     $('.drag').one('mouseenter',function(e){
-            //         e.stopImmediatePropagation();
-            //         console.log(e.target);
-            //         $('.drag').html("");
-
-            //         $.get('store.json').done(function(data){
-            //             console.log(data.products[0]);
-            //             AddCard(data.products[0],`pr${0+1}.jpg`);
-            //         });                   
-                    
-                   
-            //     });
-                  
-            // });
-            
-
-        }
-
-     
-             
-        
-
-       
-
-
-        </script>
-
+    <div class="container">
+      <!-- 검색창 -->
+      <input id="search" placeholder="검색어 입력">
     </div>
-    
+
+    <div class="container "> 
+      <!-- shopping card   -->
+
+      <div class="row product-list">
+        <!-- <img src="https://via.placeholder.com/600" class="card-img">
+        <h4>상품명</h4>
+        <p>브랜드</p>
+        <p>가격</p> -->
+      </div>
       
+    </div>
+    <div class="container basket-wrap">
+      <!-- 장바구니  -->
+      <h3>장바구니 드래그</h3>
+      <div class="row basket">
+
+
+      </div class = "container">
+        <h4>최종 가격</h4>
+        <p class = "bill">합계 : 0원</p>
+        <button class="buy">구매하기</button>
+      </div>
+
+      <div class="container">
+        <div class="modal-window show">
+            asdfasdf
+        </div>
+      </div>
+    <script>
       
+        
+      let productdata = [];
+      let cart = [];
+      var totalmoney = 0;
+      function CalMoney(cart){
+        var money = 0;
+
+        for(var i = 0;i<cart.length;i++){
+          money += (cart[i].price * cart[i].count);
+        }
+        totalmoney = money;
+        $('.bill').html(`합계 : ${money}`);
+      }
+      $.get('store.json').done(function(data){
+        productdata = data.products;  
+
+        productdata.forEach((a,i)=> { // card 
+          $('.product-list').append(
+          `<div class="col-md-3">
+            <div class="item" draggable="true" data-id="${a.id}">
+              <img src="${a.photo}">
+              <h4>${a.title}</h4>
+              <h4>${a.brand}</h4>
+              <p>가격 : ${a.price}</p>
+              <button class="add" data-id="${a.id}">담기</button>
+            </div>
+          </div>`);
+
+          productdata[i].count = 1;
+        });
+        
+        $('.add').click(function(e) { // 담기 클릭 시 장바구니로 옮기기
+          var id = $(e.target).attr('data-id');
+          //console.log(id);
+          var clickdata = productdata[id];
+          clickdata.count = productdata[id].count;
+          //console.log(cart);
+          var chk =1;         
+            for(var i =0;i<cart.length;i++){
+              if(cart[i].title === clickdata.title) {
+                chk =0;
+                //cart[i].count +=1;
+                productdata[i].count = ++cart[i].count;
+                break;
+              }
+            }
+            //console.log(chk);
+          if(chk == 1){  // 중복 없음
+            $('.basket').append(`
+            <div class="col-md-3">
+              <div class="item" draggable="true" data-id="${clickdata.id}">
+                <img src="${clickdata.photo}">
+                <h4>${clickdata.title}</h4>
+                <h4>${clickdata.brand}</h4>
+                <p>가격 : ${clickdata.price}</p>
+                <p>개수 : ${1}</p>
+              </div>
+            </div>
+            `);
+            cart.push(clickdata);
+            
+          }
+          else{ //중복 시    
+            $('.basket').html("");
+
+            for(var i =0;i<cart.length;i++){
+              $('.basket').append(`
+                <div class="col-md-3">
+                  <div class="item" draggable="true" data-id="${cart[i].id}">
+                    <img src="${cart[i].photo}">
+                    <h4>${cart[i].title}</h4>
+                    <h4>${cart[i].brand}</h4>
+                    <p>가격 : ${cart[i].price}</p>
+                    <p>개수 : ${cart[i].count}</p>
+                  </div>
+                </div>
+                `);
+            }
+             
+          } 
+          CalMoney(cart);
+        });
+
+        // 드레그 시 
+        $('.item').on('mousedown',function(e){
+          
+          var id = $(e.target).attr('data-id');
+          //console.log(id);
+
+          $('.basket').one('mouseenter',function(e){
+            
+            //console.log(e.target);
+            $('.add').eq(id).click();
+          })
+
+        })
+      });
       
+      $('.buy').click(function(){
+        console.log(1);
+      })
+
+      
+
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>
